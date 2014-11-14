@@ -1,0 +1,37 @@
+LINEA   CONTLOC    ETIQUETA   CODOP      OPER             MODODIR   CODMAQ      
+1       0000       NULL       ORG        0
+2       000F       V1         EQU        15
+3       0000       NULL       LDAA       V1               EXT       B6000F      
+4       0003       NULL       DW         4096                       1000        
+5       0005       NULL       DB         15                         0F          
+6       0006       NULL       DW         65535                      FFFF        
+7       0008       NULL       DB         255                        FF          
+8       0009       NULL       FCC        "esta cadena es un poco larga"
+6573746120636164656E6120657320756E20706F636F206C61726761
+9       0022       Uno        equ        $22
+10      2222       Dos        equ        $2222
+11      0025       NULL       Ldaa       Uno              EXT       B60022      
+12      0028       NULL       Ldaa       Dos              EXT       B62222      
+13      002B       NULL       dc.b       $22                        22          
+14      002C       NULL       dc.w       $2222                      2222        
+15      002E       NULL       fcc        "taller de programación de sistemas;jojojo"
+74616C6C65722064652070726F6772616D616369F36E2064652073697374656D61733B6A6F6A6F6A6F
+16      0057       NULL       fcc        "Esta es una cadena con \"comillas\" y diagonal \\"
+4573746120657320756E6120636164656E6120636F6E2022636F6D696C6C617322207920646961676F6E616C205C
+18      0085       NULL       DW         2                          0002        
+19      0087       NULL       DB         2                          02          
+20      0088       NULL       DC.W       2                          0002        
+21      008A       NULL       DC.B       2                          02          
+22      008B       e1         FCB        2                          02          
+23      008C       NULL       FDB        2222                       08AE        
+24      008E       NULL       DS         34
+25      00B0       NULL       DS.B       34
+26      00D2       NULL       DS.W       34
+27      0116       NULL       RMB        34
+28      0138       NULL       RMW        34
+29      017C       NULL       FCC        "HOLA MUNDO"               484F4C41204D554E444F
+30      0186       NULL       rmw        @500
+31      0406       e3         swi        NULL             INH       3F          
+32      0407       e4         adca       $3               DIR       9903        
+33      0002       EN5        EQU        2
+34      0409       EN4        END        NULL

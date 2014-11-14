@@ -1,0 +1,7 @@
+linea 5 Error: El operando debe ser NULL
+linea 12 Error: El operando debe ser distinto de NULL
+linea 32 Se esperaba un codop al final de la linea
+linea 34 Error: El codop no existe
+linea 35 Error: El codop no existe
+linea 75 Error: El codop no existe
+linea 86 Se esperaba un codop al final de la linea

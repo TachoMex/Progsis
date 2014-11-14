@@ -1,0 +1,14 @@
+linea 4 Se esperaba un codop al final de la linea
+linea 5 El codop contiene simbolos no permitidos
+linea 10 El tamaño de la etiqueta exede el limite (8)
+linea 11 La etiqueta no comienza con letra
+linea 12 La etiqueta contiene simbolos no permitidos
+linea 13 El codop no comienza con letra
+linea 14 El tamaño del codop exede el limite (5)
+linea 15 El tamaño del codop exede el limite (5)
+linea 16 El codop tiene mas de un '.'
+linea 18 Se esperaba un codop al final de la linea
+linea 20 El codop contiene simbolos no permitidos
+linea 22 Error en la cantidad de tokens
+linea 25 Las etiqutas deben aparecer al inicio de la linea
+linea 26 La etiqueta no comienza con letra

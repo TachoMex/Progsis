@@ -1,0 +1,15 @@
+LINEA   CONTLOC    ETIQUETA   CODOP      OPER                MODODIR   CODMAQ      
+1       0465       NULL       ORG        1125                                      
+2       0465       NULL       STS        [@125,PC]           [IDX2]    6FFB0055    
+3       0469       A1         STS        [D,SP]              [D,IDX]   6FF7        
+5       046B       NULL       JMP        [D,PC]              [D,IDX]   05FF        
+6       046D       NULL       ADCA       [D,X]               [D,IDX]   A9E7        
+7       046F       NULL       ADCB       [D,SP]              [D,IDX]   E9F7        
+8       0471       A4         ADDA       [D,Y]               [D,IDX]   ABEF        
+10      0473       NULL       LDAA       [10,X]              [IDX2]    A6E3000A    
+11      0477       NULL       LDAA       [31483,X]           [IDX2]    A6E37AFB    
+13      047B       NULL       STS        [$0FFFF,PC]         [IDX2]    6FFBFFFF    
+14      047F       NULL       LDAA       [%010,X]            [IDX2]    A6E30002    
+15      0483       a3         LDAA       [@3143,X]           [IDX2]    A6E30663    
+16      0487       NULL       STS        [125,PC]            [IDX2]    6FFB007D    
+17      048B       NULL       END        NULL                                      

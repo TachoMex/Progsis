@@ -1,0 +1,155 @@
+LINEA   CONTLOC    ETIQUETA   CODOP      OPER               MODODIR   CODMAQ      
+1       0017       NULL       ORG        $17                                      
+2       0030       UNO        EQU        $30                                      
+3       0050       DOS        EQU        $50                                      
+4       0017       NULL       BRA        UNO                REL8      2017        
+5       0019       NULL       LBRA       DOS                REL16     18200033    
+6       001D       NULL       BCS        UNO                REL8      2511        
+7       001F       NULL       LBCS       TRES               REL16     18250000    
+8       0023       TRES       BCS        DOS                REL8      252B        
+9       0025       CUATRO     SWI        NULL               INH       3F          
+10      0026       NULL       STS        [125,PC]           [IDX2]    6FFB007D    
+11      002A       NULL       STS        [D,SP]             [D,IDX]   6FF7        
+12      002C       NULL       STS        ,Y                 IDX       6F40        
+13      002E       NULL       STS        0,PC               IDX       6FC0        
+14      0030       NULL       STS        2,SP               IDX       6F82        
+15      0032       NULL       STS        -2,X               IDX       6F1E        
+16      0034       NULL       STS        41,X               IDX1      6FE029      
+17      0037       NULL       STS        -41,Y              IDX1      6FE9D7      
+18      003A       NULL       STS        65500,PC           IDX2      6FFAFFDC    
+19      003E       NULL       STS        3,-X               IDX       6F2D        
+20      0040       NULL       STS        4,Y-               IDX       6F7C        
+21      0042       NULL       STS        5,+SP              IDX       6FA4        
+22      0044       NULL       STS        6,X+               IDX       6F35        
+23      0046       NULL       STS        D,PC               IDX       6FFE        
+24      0048       NULL       SUBD       #4096              IMM16     831000      
+25      004B       NULL       SUBD       #$00FF             IMM16     8300FF      
+26      004E       NULL       SUBD       #0                 IMM16     830000      
+27      0051       NULL       SBCA       #$0                IMM8      8200        
+28      0053       NULL       SBCA       #255               IMM8      82FF        
+29      0055       NULL       SBCA       #@75               IMM8      82FD        
+30      0057       NULL       SUBA       4096               EXT       B01000      
+31      005A       NULL       SUBA       180                DIR       90B4        
+32      005C       NULL       IDIV       NULL               INH       1810        
+33      0004       A          EQU        4                                        
+34      1F40       EN2        EQU        8000                                     
+35      0003       EN3        EQU        3                                        
+36      005E       NULL       FDB        8000                         1F40        
+37      0060       NULL       FCC        "35"                         3335        
+38      0062       NULL       FCC        "fiu"                        666975      
+39      0065       NULL       FCC        "Hi"                         4869        
+40      0067       NULL       FCC        "Esta es una cadena muy larga que no debe indicar error"              4573746120657320756E6120636164656E61206D7579206C6172676120717565206E6F206465626520696E6469636172206572726F72
+41      009D       NULL       RMB        8000                                     
+42      1FDD       NULL       RMW        8000                                     
+43      0002       EN4        EQU        2                                        
+44      5E5D       NULL       DEX        NULL               INH       09          
+45      5E5E       NULL       addd       5                  DIR       D305        
+47      5E60       NULL       ABA        NULL               INH       1806        
+48      5E62       E          INCA       NULL               INH       42          
+49      5E63       NULL       CLRA       NULL               INH       B7          
+50      5E64       NULL       CLR        10                 EXT       79000A      
+51      5E67       NULL       JMP        20                 EXT       060014      
+52      5E6A       NULL       LDAA       255                DIR       96FF        
+53      5E6C       NULL       LDAA       256                EXT       B60100      
+54      5E6F       NULL       LDAA       #10                IMM8      860A        
+55      5E71       E1         LDAA       %10                EXT       B6FFFF      
+56      5E74       NULL       LDAA       $100               EXT       B60100      
+57      5E77       NULL       LBLO       0                  REL16     1825A185    
+58      5E7B       E2         STAA       100                DIR       5A64        
+59      5E7D       E3         ANDA       #10                IMM8      840A        
+60      5E7F       E4         LDAA       [100,x]            [IDX2]    A6E30064    
+61      5E83       E5         LDAA       [100,Y]            [IDX2]    A6EB0064    
+62      5E87       NULL       LDAA       $A                 DIR       960A        
+63      5E89       E6         LDAA       8,X+               IDX       A637        
+64      5E8B       E7         LDAA       1,+x               IDX       A620        
+65      5E8D       E8         LDAA       3,-X               IDX       A62D        
+66      5E8F       E9         LDAA       4,+X               IDX       A623        
+67      5E91       E10        LDAA       1,PC               IDX       A6C1        
+68      5E93       NULL       LDAA       4,X                IDX       A604        
+69      5E95       NULL       LDAA       8,Y                IDX       A648        
+70      5E97       NULL       LDAA       16,SP              IDX1      A6F010      
+71      5E9A       E11        LDAA       256,PC             IDX2      A6FA0100    
+72      5E9E       E12        JMP        15,sp              IDX       058F        
+74      5EA0       E14        LDAA       1,X                IDX       A601        
+75      5EA2       E15        LDAA       ,X                 IDX       A600        
+76      5EA4       NULL       LDAA       %11111111          EXT       B6FFFF      
+77      5EA7       NULL       LDAA       %111111111         EXT       B6FFFF      
+78      5EAA       NULL       inca       NULL               INH       42          
+79      5EAB       E16        INC        $136               EXT       720136      
+80      5EAE       E17        bita       #@100              IMM8      8540        
+81      5EB0       E18        LDAA       7,+y               IDX       A666        
+82      5EB2       NULL       jmp        0,PC               IDX       05C0        
+83      5EB4       NULL       jmp        ,PC                IDX       05C0        
+84      5EB6       NULL       JMP        [0,Y]              [IDX2]    05EB0000    
+85      5EBA       E20        jmp        10,y               IDX       054A        
+86      5EBC       NULL       bitb       256                EXT       F50100      
+87      5EBF       NULL       cpd        V1                 EXT       BC000F      
+89      5EC2       E21        LDAA       4,PC               IDX       A6C4        
+90      5EC4       NULL       LDAA       11,X               IDX       A60B        
+91      5EC6       NULL       LDAA       111,Y              IDX1      A6E86F      
+92      5EC9       NULL       LDAA       0,SP               IDX       A680        
+94      5ECB       NULL       STS        ,Y                 IDX       6F40        
+95      5ECD       NULL       STS        0,PC               IDX       6FC0        
+96      5ECF       NULL       STS        2,SP               IDX       6F82        
+97      5ED1       NULL       STS        -2,X               IDX       6F1E        
+98      5ED3       NULL       STS        41,X               IDX1      6FE029      
+99      5ED6       NULL       STS        -41,Y              IDX1      6FE9D7      
+100     5ED9       NULL       STS        65500,PC           IDX2      6FFAFFDC    
+101     5EDD       NULL       STS        3,-X               IDX       6F2D        
+102     5EDF       NULL       STS        4,Y-               IDX       6F7C        
+103     5EE1       NULL       STS        5,+SP              IDX       6FA4        
+104     5EE3       NULL       STS        6,X+               IDX       6F35        
+105     5EE5       NULL       STS        D,PC               IDX       6FFE        
+106     5EE7       NULL       andb       ,pc                IDX       E4C0        
+107     5EE9       NULL       bitb       5,-y               IDX       E56B        
+108     5EEB       NULL       clr        1,+x               IDX       6920        
+109     5EED       NULL       cps        1,x+               IDX       AF30        
+110     5EEF       NULL       cpx        a,sp               IDX       AEF4        
+111     5EF1       NULL       inc        16,x               IDX1      62E010      
+112     5EF4       NULL       ldaa       8,y                IDX       A648        
+113     5EF6       NULL       ldaa       256,pc             IDX2      A6FA0100    
+114     5EFA       NULL       STS        [125,PC]           [IDX2]    6FFB007D    
+115     5EFE       a1         STS        [D,SP]             [D,IDX]   6FF7        
+116     5F00       NULL       LDAA       [10,X]             [IDX2]    A6E3000A    
+117     5F04       a3         LDAA       [31483,X]          [IDX2]    A6E37AFB    
+118     5F08       NULL       JMP        [D,PC]             [D,IDX]   05FF        
+119     5F0A       NULL       ADCA       [D,X]              [D,IDX]   A9E7        
+120     5F0C       NULL       ADCB       [D,SP]             [D,IDX]   E9F7        
+121     5F0E       a4         ADDA       [D,Y]              [D,IDX]   ABEF        
+122     5F10       NULL       addA       [0,pc]             [IDX2]    ABFB0000    
+123     5F14       NULL       adda       [65535,x]          [IDX2]    ABE3FFFF    
+124     5F18       NULL       anda       [0,y]              [IDX2]    A4EB0000    
+125     5F1C       NULL       asr        [255,sp]           [IDX2]    67F300FF    
+126     5F20       NULL       bitb       [4,pc]             [IDX2]    E5FB0004    
+127     5F24       a5         eora       [0,x]              [IDX2]    A8E30000    
+128     5F28       NULL       neg        [0,y]              [IDX2]    60EB0000    
+129     5F30       uno        EQU        $5F30                                    
+130     5F50       dos        EQU        $5F50                                    
+131     5F2C       e1         BRA        uno                REL8      2002        
+132     5F2E       NULL       LBRA       dos                REL16     1820001E    
+133     5F32       NULL       BCS        uno                REL8      25FC        
+134     5F34       NULL       LBCS       tres               REL16     18250000    
+135     5F38       tres       BCS        dos                REL8      2516        
+136     5F3A       cuatro     SWI        NULL               INH       3F          
+137     5F3B       cinco      DS         10                                       
+138     5F45       NULL       BRA        cinco              REL8      20F4        
+139     5F47       seis       DS         4096                                     
+140     6F47       NULL       lbcc       $17                REL16     182490CC    
+141     6F4B       NULL       lbcc       uno                REL16     1824EFE1    
+142     6F4F       NULL       lblo       seis               REL16     1825EFF4    
+143     6F53       NULL       lblo       e1                 REL16     1825EFD5    
+144     000F       V1         EQU        15                                       
+145     6F57       NULL       LDAA       V1                 EXT       B6000F      
+146     6F5A       NULL       DW         4096                         1000        
+147     6F5C       NULL       DB         15                           0F          
+148     6F5D       NULL       DW         65535                        FFFF        
+149     6F5F       NULL       DB         255                          FF          
+150     6F60       NULL       FCC        "esta cadena es un poco larga"                                        6573746120636164656E6120657320756E20706F636F206C61726761
+151     5F22       Uno        equ        $5F22                                    
+152     5522       Dos        equ        $5522                                    
+153     6F7C       NULL       Ldaa       Uno                EXT       B65F22      
+154     6F7F       NULL       Ldaa       Dos                EXT       B65522      
+155     6F82       NULL       dc.b       $22                          22          
+156     6F83       NULL       dc.w       $2222                        2222        
+157     6F85       NULL       fcc        "TALLER de PROGRAMACIÓN de SISTEMAS"                                  54414C4C45522064652050524F4752414D414349FFFD4E2064652053495354454D4153
+158     6FA7       NULL       END        NULL                                     

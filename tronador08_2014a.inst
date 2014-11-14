@@ -1,0 +1,18 @@
+LINEA   CONTLOC    ETIQUETA   CODOP      OPER                MODODIR   CODMAQ      
+1       0017       NULL       ORG        $17                                       
+2       0030       UNO        EQU        $30                                       
+3       0050       DOS        EQU        $50                                       
+4       0017       e1         BRA        UNO                 REL8      2017        
+5       0019       NULL       LBRA       DOS                 REL16     18200033    
+6       001D       NULL       BCS        UNO                 REL8      2511        
+7       001F       NULL       LBCS       TRES                REL16     18250000    
+8       0023       TRES       BCS        DOS                 REL8      252B        
+9       0025       CUATRO     SWI        NULL                INH       3F          
+10      0026       CINCO      DS         10                                        
+11      0030       NULL       BRA        CINCO               REL8      20F4        
+12      0032       SEIS       DS         4096                                      
+14      1032       NULL       lbcc       $17                 REL16     1824EFE1    
+16      1036       NULL       lbcc       UNO                 REL16     1824EFF6    
+17      103A       NULL       lblo       SEIS                REL16     1825EFF4    
+18      103E       NULL       lblo       e1                  REL16     1825EFD5    
+25      1042       NULL       END        NULL                                      
