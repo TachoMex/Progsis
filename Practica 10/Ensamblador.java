@@ -342,13 +342,15 @@ public class Ensamblador{
 	}
 
 	public static String checkSum(String s){
+		//System.out.println("checkSum: "+s);
 		int sum=0;
 		for(int i=0;i<s.length();i+=2){
 			sum+=Integer.parseInt(""+s.charAt(i)+s.charAt(i+1),16);
 		}
 		sum=255-(sum&0xff);
-		return Clasificador.intHexByte(sum);
+		return Clasificador.intHexByte(sum).toUpperCase();
 	} 
+
 
 	/*
      * Funcion que genera el codigo maquina del codigo
@@ -356,42 +358,27 @@ public class Ensamblador{
 	public void parse(){
 		try{
 
-			BufferedReader arch=new BufferedReader (new InputStreamReader (new FileInputStream (rutaArchivo+".tmp"), "8859_1"));
-			BufferedWriter salida=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(rutaArchivo+".ins"),"8859_1"));
-			BufferedWriter objeto = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(rutaArchivo+".s19"),"8859_1"));
+			BufferedReader arch = new BufferedReader (new InputStreamReader (new FileInputStream(rutaArchivo+".tmp"), "8859_1"));
+			BufferedWriter salida = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(rutaArchivo+".ins"),"8859_1"));
+			BufferedWriter objeto =  new BufferedWriter(new OutputStreamWriter(new FileOutputStream(rutaArchivo+".s19"),"8859_1"));
 			String linea;
-			String lineaObj="S0XX0000";
-			String rutaArchivo2=rutaArchivo+".asm\n\r";
-			for(int i=0;i<rutaArchivo2.length();i++){
-				if(lineaObj.length()>=40){
-					lineaObj="S0130000"+lineaObj.substring(8);
-					lineaObj=lineaObj+checkSum(lineaObj.substring(2));
-					objeto.write(lineaObj+"\n");
-					lineaObj="S0XX0000";
-				}
-				lineaObj+=Clasificador.intHexByte(rutaArchivo2.charAt(i));
-			}
-			lineaObj="S0"+Clasificador.intHexByte(lineaObj.length()/2-1)+"0000"+lineaObj.substring(8);
-			lineaObj=lineaObj+checkSum(lineaObj.substring(2));
-			objeto.write(lineaObj+"\n");
-			lineaObj="S1XX";
-			String contLoc="FFFF";
+			String codigoObj="#";
+
 			while((linea=arch.readLine())!=null){
 				StringTokenizer strtok = new StringTokenizer(linea,"\t");
 				String lin = strtok.nextToken();
-				String aux = strtok.nextToken();
-				contLoc = (aux.compareTo(contLoc)==1?contLoc:aux);
+				String contLoc = strtok.nextToken();
 				String etiqueta = strtok.nextToken();
 				String codop = strtok.nextToken();
 				String operando = strtok.nextToken();
-				if(lineaObj.equals("S1XX")){
-					lineaObj+=contLoc;
-				}
 				if(Clasificador.esEtiqueta(operando) && !operando.equals("NULL") && !codop.equals("FCC")){
 					operando=""+tabsim.valor(operando);
 				}
 				String modo = strtok.nextToken();
 				String codigo ="";
+				if(codigoObj.endsWith("#")){
+					codigoObj+=contLoc;					
+				}
 				switch(modo){
 					//El inmediato se calcula solo removiendo  el primer caracter (#) y convirtiendo a un hexadecimal de 2 digitos
 					case "IMM8":
@@ -592,54 +579,50 @@ public class Ensamblador{
 				}
 				switch(codop){
 					case "DB": case "DC.B": case "FCB":
-						codigo = Clasificador.intHexByte(Clasificador.parseInt(operando));
-						lineaObj="S1"+Clasificador.intHexByte(lineaObj.length()/2-1)+lineaObj.substring(4,8)+lineaObj.substring(8)+codigo;
-						lineaObj=lineaObj+checkSum(lineaObj.substring(2));
-						//System.out.println(lineaObj.toUpperCase());
-						objeto.write(lineaObj.toUpperCase()+"\n");
-						contLoc=Clasificador.intHexWord(Integer.parseInt(contLoc,16)+codigo.length()/2);
-						lineaObj="S1XX"+contLoc;
-						codigo="";
+						codigo = "#"+contLoc+Clasificador.intHexByte(Clasificador.parseInt(operando));
 					break; 
 					case "DW": case "DC.W": case "FDB":
-						codigo = Clasificador.intHexWord(Clasificador.parseInt(operando));
-						lineaObj="S1"+Clasificador.intHexByte(lineaObj.length()/2-1)+lineaObj.substring(4,8)+lineaObj.substring(8)+codigo;
-						lineaObj=lineaObj+checkSum(lineaObj.substring(2));
-						//System.out.println(lineaObj.toUpperCase());
-						objeto.write(lineaObj.toUpperCase()+"\n");
-						contLoc=Clasificador.intHexWord(Integer.parseInt(contLoc,16)+codigo.length()/2);
-						lineaObj="S1XX"+contLoc;
-						codigo="";
+						codigo = "#"+contLoc+Clasificador.intHexWord(Clasificador.parseInt(operando));
 					break;
 					case "FCC":
 						codigo = Clasificador.strToHex(operando);
 					break;
-					case "DS.B": case "EQU":
-						if(lineaObj.length()>8){
-							lineaObj="S1"+Clasificador.intHexByte(lineaObj.length()/2-1)+lineaObj.substring(4,8)+lineaObj.substring(8);
-							lineaObj=lineaObj+checkSum(lineaObj.substring(2));
-							objeto.write(lineaObj.toUpperCase()+"\n");
-							lineaObj="S1XX"+contLoc;
-						}
-					break;
-
+					default:
+						if(codigo.equals(""))
+							codigo="#";
 				}
-				for(int i=0;i<codigo.length();i++){
-					if(lineaObj.length()>=40){
-						lineaObj="S113"+lineaObj.substring(4);
-						lineaObj=lineaObj+checkSum(lineaObj.substring(2));
-						objeto.write(lineaObj.toUpperCase()+"\n");
-						contLoc=Clasificador.intHexWord(Integer.parseInt(contLoc,16)+codigo.length()/2);
-						lineaObj="S1XX"+contLoc;
-					}
-					lineaObj+=codigo.charAt(i);
-				}
+				codigoObj+=codigo;
 				salida.write(lin+"\t"+contLoc+"\t"+etiqueta+"\t"+codop+"\t"+operando+"\t"+modo+"\t"+codigo+"\n");
 			}
-			objeto.write("S9030000FC\n");
+			codigoObj=codigoObj.toUpperCase();
+			int idx;
+			while((idx=codigoObj.indexOf('#'))!=-1){
+				String codigoObj2=codigoObj.substring(0,idx);
+				codigoObj=codigoObj.substring(idx+1);
+				if(codigoObj2.length()>=4){
+					int contloc=Integer.parseInt(codigoObj2.substring(0,4),16);
+					codigoObj2=codigoObj2.substring(4);
+					//System.out.println(Clasificador.intHexWord(contloc)+" "+codigoObj2);
+					while(codigoObj2.length()>0){
+						if(codigoObj2.length()>32){
+							String lineaObjeto="S113"+Clasificador.intHexWord(contloc).toUpperCase()+codigoObj2.substring(0,32);
+							lineaObjeto+=checkSum(lineaObjeto.substring(2));
+							codigoObj2=codigoObj2.substring(32);
+							System.out.println(lineaObjeto);
+							contloc+=16;
+						}else{
+							//System.out.println(codigoObj2+"::");
+							String lineaObjeto="S1"+Clasificador.intHexByte(codigoObj2.length()/2+3).toUpperCase()+Clasificador.intHexWord(contloc).toUpperCase()+codigoObj2;
+							lineaObjeto+=checkSum(lineaObjeto.substring(2));
+							System.out.println(lineaObjeto);
+							codigoObj2="";
+						}
+
+					}
+				}
+			}
 			arch.close();
 			salida.close();
-			objeto.close();
 			File viejo = new File(rutaArchivo+".tmp");
 			viejo.delete();
 		}catch(Exception e){
