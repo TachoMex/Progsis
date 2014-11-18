@@ -363,7 +363,17 @@ public class Ensamblador{
 			BufferedWriter objeto =  new BufferedWriter(new OutputStreamWriter(new FileOutputStream(rutaArchivo+".s19"),"8859_1"));
 			String linea;
 			String codigoObj="#";
-
+			String lineaObj="S0XX0000";
+			String rutaArchivo2=rutaArchivo+".asm\n\r";
+			for(int i=0;i<rutaArchivo2.length();i++){
+				if(lineaObj.length()>=34){
+					lineaObj="S0100000"+lineaObj.substring(8);
+					lineaObj=lineaObj+checkSum(lineaObj.substring(2));
+					objeto.write(lineaObj.toUpperCase()+"\n");
+					lineaObj="S0XX0000";
+				}
+				lineaObj+=Clasificador.intHexByte(rutaArchivo2.charAt(i));
+			}
 			while((linea=arch.readLine())!=null){
 				StringTokenizer strtok = new StringTokenizer(linea,"\t");
 				String lin = strtok.nextToken();
@@ -608,20 +618,22 @@ public class Ensamblador{
 							String lineaObjeto="S113"+Clasificador.intHexWord(contloc).toUpperCase()+codigoObj2.substring(0,32);
 							lineaObjeto+=checkSum(lineaObjeto.substring(2));
 							codigoObj2=codigoObj2.substring(32);
-							System.out.println(lineaObjeto);
+							objeto.write(lineaObjeto+"\n");
 							contloc+=16;
 						}else{
 							//System.out.println(codigoObj2+"::");
 							String lineaObjeto="S1"+Clasificador.intHexByte(codigoObj2.length()/2+3).toUpperCase()+Clasificador.intHexWord(contloc).toUpperCase()+codigoObj2;
 							lineaObjeto+=checkSum(lineaObjeto.substring(2));
-							System.out.println(lineaObjeto);
+							objeto.write(lineaObjeto+"\n");
 							codigoObj2="";
 						}
 
 					}
 				}
 			}
+			objeto.write("S9030000FC\n");
 			arch.close();
+			objeto.close();
 			salida.close();
 			File viejo = new File(rutaArchivo+".tmp");
 			viejo.delete();
